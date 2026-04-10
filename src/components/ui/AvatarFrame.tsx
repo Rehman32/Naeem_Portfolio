@@ -1,96 +1,327 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { siteData } from "@/config/site-data";
 
-// 5 organic blob shapes for morphing
-const blobPaths = [
-  "M44.5,-60.2C56.3,-51.8,63.6,-36.8,67.2,-21.2C70.8,-5.6,70.7,10.6,64.8,24.3C58.9,38,47.2,49.2,33.8,56.6C20.4,64,-4.7,67.6,-24.6,62.3C-44.5,57,-59.2,42.8,-66.3,26C-73.4,9.2,-73,-10.2,-65.7,-25.8C-58.4,-41.4,-44.2,-53.2,-29.6,-60.3C-15,-67.4,0,-69.8,14.3,-67.5C28.6,-65.2,32.7,-68.6,44.5,-60.2Z",
-  "M39.9,-53.1C50.7,-45.5,57.5,-32.1,61.4,-17.8C65.3,-3.5,66.3,11.7,61.1,24.6C55.9,37.5,44.5,48.1,31.4,55.2C18.3,62.3,3.5,65.9,-12.3,64.2C-28.1,62.5,-44.9,55.5,-55.1,43.5C-65.3,31.5,-68.9,14.5,-67.7,-1.8C-66.5,-18.1,-60.5,-33.7,-49.8,-41.4C-39.1,-49.1,-23.7,-48.9,-9.3,-50.8C5.1,-52.7,29.1,-60.7,39.9,-53.1Z",
-  "M46.8,-62.8C58.8,-52.9,65.3,-36.1,68.1,-19.3C70.9,-2.5,70,14.3,63.1,28.2C56.2,42.1,43.3,53.1,28.7,59.3C14.1,65.5,-2.2,66.9,-18.9,63.3C-35.6,59.7,-52.7,51.1,-61.3,37.7C-69.9,24.3,-70,6.1,-65.3,-9.3C-60.6,-24.7,-51.1,-37.3,-39.2,-47.2C-27.3,-57.1,-13.7,-64.3,2.3,-67.2C18.3,-70.1,34.8,-72.7,46.8,-62.8Z",
-  "M41.3,-55.3C52.4,-47.4,59.8,-34,63.8,-19.6C67.8,-5.2,68.4,10.2,63.2,23.4C58,36.6,47,47.6,34.1,54.8C21.2,62,6.4,65.4,-8.5,63.8C-23.4,62.2,-38.4,55.6,-49.6,44.8C-60.8,34,-68.2,19,-68.4,3.8C-68.6,-11.4,-61.6,-26.8,-50.8,-34.9C-40,-43,-25.4,-43.8,-12.1,-50.5C1.2,-57.2,30.2,-63.2,41.3,-55.3Z",
-  "M43.8,-57.4C55.5,-49.6,62.9,-34.6,66.7,-19C70.5,-3.4,70.7,12.8,64.7,26.3C58.7,39.8,46.5,50.6,32.6,57.2C18.7,63.8,3.1,66.2,-13.5,64.3C-30.1,62.4,-47.7,56.2,-57.7,44C-67.7,31.8,-70.1,13.6,-67.3,-2.8C-64.5,-19.2,-56.5,-33.8,-44.9,-41.7C-33.3,-49.6,-18.1,-50.8,-1.2,-49.3C15.7,-47.8,32.1,-65.2,43.8,-57.4Z",
-];
+/* ─── Orbiting light dot ─────────────────────────────────── */
+function OrbitDot({
+  color,
+  size,
+  orbitRadius,
+  duration,
+  delay,
+  startAngle,
+  centerOffset,
+}: {
+  color: string;
+  size: number;
+  orbitRadius: number;
+  duration: number;
+  delay: number;
+  startAngle: number;
+  centerOffset: number; /* half of parent container px */
+}) {
+  const rad = (startAngle * Math.PI) / 180;
+  const startX = centerOffset + orbitRadius * Math.sin(rad) - size / 2;
+  const startY = centerOffset - orbitRadius * Math.cos(rad) - size / 2;
+
+  return (
+    <motion.div
+      className="absolute pointer-events-none"
+      style={{
+        width: size,
+        height: size,
+        left: startX,
+        top: startY,
+        borderRadius: "50%",
+        background: color,
+        boxShadow: `0 0 ${size * 3}px ${size + 2}px ${color}`,
+      }}
+      animate={{
+        left: [
+          centerOffset + orbitRadius * Math.sin((startAngle * Math.PI) / 180) - size / 2,
+          centerOffset + orbitRadius * Math.sin(((startAngle + 90) * Math.PI) / 180) - size / 2,
+          centerOffset + orbitRadius * Math.sin(((startAngle + 180) * Math.PI) / 180) - size / 2,
+          centerOffset + orbitRadius * Math.sin(((startAngle + 270) * Math.PI) / 180) - size / 2,
+          centerOffset + orbitRadius * Math.sin(((startAngle + 360) * Math.PI) / 180) - size / 2,
+        ],
+        top: [
+          centerOffset - orbitRadius * Math.cos((startAngle * Math.PI) / 180) - size / 2,
+          centerOffset - orbitRadius * Math.cos(((startAngle + 90) * Math.PI) / 180) - size / 2,
+          centerOffset - orbitRadius * Math.cos(((startAngle + 180) * Math.PI) / 180) - size / 2,
+          centerOffset - orbitRadius * Math.cos(((startAngle + 270) * Math.PI) / 180) - size / 2,
+          centerOffset - orbitRadius * Math.cos(((startAngle + 360) * Math.PI) / 180) - size / 2,
+        ],
+      }}
+      transition={{
+        duration,
+        ease: "linear",
+        repeat: Infinity,
+        delay,
+      }}
+    />
+  );
+}
 
 export default function AvatarFrame() {
+  /* Photo circle is 240px mobile / 320px desktop.
+     Outer decorations need ~64px of extra space on each side.
+     The outer container is larger so effects are visible. */
+
+  return (
+    <>
+      {/* ─── Desktop ────────────────────────────────── */}
+      <div className="hidden lg:block">
+        <AvatarCore photoSizePx={320} outerPad={70} />
+      </div>
+      {/* ─── Mobile / Tablet ────────────────────────── */}
+      <div className="lg:hidden">
+        <AvatarCore photoSizePx={200} outerPad={52} />
+      </div>
+    </>
+  );
+}
+
+function AvatarCore({
+  photoSizePx,
+  outerPad,
+}: {
+  photoSizePx: number;
+  outerPad: number;
+}) {
+  const total = photoSizePx + outerPad * 2;
+  const center = total / 2;
+  const r = photoSizePx / 2; /* photo radius */
+
+  /* Ring radii — strictly OUTSIDE photo */
+  const r1 = r + 10;
+  const r2 = r + 22;
+  const r3 = r + 36;
+  const r4 = r + 52;   /* outermost arcs */
+
   return (
     <div
-      className="relative w-[240px] h-[240px] lg:w-[340px] lg:h-[340px] group"
-      data-cursor="image"
       role="img"
       aria-label="Photo of Naeem Ur Rahman"
+      data-cursor="image"
+      className="relative group"
+      style={{ width: total, height: total }}
     >
-      {/* Layer 3: Pulsing Outer Glow */}
-      <div
-        className="absolute inset-[-20px] rounded-full"
+
+      {/* ══ 1. DEEP BLOOM GLOW ═══════════════════════════════ */}
+      <motion.div
+        className="absolute rounded-full pointer-events-none"
         style={{
+          width: total,
+          height: total,
+          top: 0,
+          left: 0,
           background:
-            "radial-gradient(circle, var(--avatar-glow, rgba(52,211,153,0.2)), transparent 70%)",
-          animation: "pulse-glow 3s ease-in-out infinite",
+            "radial-gradient(circle at 50% 50%, rgba(52,211,153,0.20) 0%, rgba(167,139,250,0.10) 40%, transparent 68%)",
         }}
+        animate={{ scale: [1, 1.06, 1], opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 5, ease: "easeInOut", repeat: Infinity }}
       />
 
-      {/* Layer 2: Rotating Gradient Ring */}
+      {/* ══ 2. PHOTO — clean perfect circle ══════════════════ */}
       <div
-        className="absolute inset-[-6px] rounded-full"
+        className="absolute overflow-hidden rounded-full"
         style={{
-          background:
-            "conic-gradient(from 0deg, #34D399, #A78BFA, #38BDF8, #34D399)",
-          animation: "spin 6s linear infinite",
-          opacity: "var(--ring-opacity, 1)",
+          width: photoSizePx,
+          height: photoSizePx,
+          left: outerPad,
+          top: outerPad,
+          zIndex: 10,
         }}
       >
-        {/* Inner mask to create ring effect */}
+        <Image
+          src={siteData.personal.photo}
+          alt="Naeem Ur Rahman"
+          fill
+          priority
+          className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.05]"
+          sizes={`${photoSizePx}px`}
+        />
+        {/* Bottom vignette for depth */}
         <div
-          className="absolute inset-[2px] rounded-full"
-          style={{ background: "var(--bg-page)" }}
+          className="absolute inset-0 rounded-full pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 110%, rgba(0,0,0,0.3) 0%, transparent 55%)",
+          }}
         />
       </div>
 
-      {/* Layer 1: Morphing Blob with Photo */}
-      <div className="absolute inset-0 overflow-hidden">
-        <svg viewBox="-80 -80 160 160" className="w-full h-full">
-          <defs>
-            <clipPath id="blob-clip">
-              <motion.path
-                d={blobPaths[0]}
-                animate={{
-                  d: blobPaths,
-                }}
-                transition={{
-                  duration: 12,
-                  ease: "easeInOut",
-                  repeat: Infinity,
-                  repeatType: "mirror",
-                }}
-              />
-            </clipPath>
-          </defs>
-          <g clipPath="url(#blob-clip)">
-            <image
-              href={siteData.personal.photo}
-              x="-80"
-              y="-80"
-              width="160"
-              height="160"
-              preserveAspectRatio="xMidYMid slice"
-              className="transition-transform duration-300 group-hover:scale-[1.04]"
+      {/* ══ 3. SVG OUTER DECORATIONS ══════════════════════════ */}
+      <svg
+        width={total}
+        height={total}
+        viewBox={`0 0 ${total} ${total}`}
+        className="absolute inset-0 pointer-events-none"
+        style={{ zIndex: 5 }}
+      >
+        <defs>
+          <linearGradient id={`grad-a-${photoSizePx}`} x1="0" y1="-1" x2="0" y2="1" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stopColor="#34D399" stopOpacity="0.9" />
+            <stop offset="50%"  stopColor="#A78BFA" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.9" />
+          </linearGradient>
+          <linearGradient id={`grad-b-${photoSizePx}`} x1="-1" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stopColor="#38BDF8" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#34D399" stopOpacity="0.4" />
+          </linearGradient>
+        </defs>
+        <g transform={`translate(${center},${center})`}>
+
+          {/* ── Solid ring tight to photo edge ── */}
+          <circle cx="0" cy="0" r={r1}
+            fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth="1" />
+
+          {/* ── Rotating dashed coloured ring ── */}
+          <motion.g
+            animate={{ rotate: 360 }}
+            transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+          >
+            <circle cx="0" cy="0" r={r2}
+              fill="none"
+              stroke={`url(#grad-a-${photoSizePx})`}
+              strokeWidth="1.5"
+              strokeDasharray="10 16"
+              strokeLinecap="round"
             />
-          </g>
-        </svg>
+          </motion.g>
+
+          {/* ── Counter-rotating finer dotted ring ── */}
+          <motion.g
+            animate={{ rotate: -360 }}
+            transition={{ duration: 18, ease: "linear", repeat: Infinity }}
+          >
+            <circle cx="0" cy="0" r={r3}
+              fill="none"
+              stroke={`url(#grad-b-${photoSizePx})`}
+              strokeWidth="1"
+              strokeDasharray="3 22"
+              strokeLinecap="round"
+            />
+          </motion.g>
+
+          {/* ── Three spinning arc strokes (outermost layer) ── */}
+          {/* Emerald arc */}
+          <motion.circle cx="0" cy="0" r={r4}
+            fill="none" stroke="#34D399" strokeWidth="2" strokeLinecap="round"
+            strokeDasharray={`${2 * Math.PI * r4 * 0.22} ${2 * Math.PI * r4 * 0.78}`}
+            animate={{ rotate: [0, 360] }}
+            transition={{ duration: 6, ease: "linear", repeat: Infinity }}
+            style={{ originX: "0px", originY: "0px" }}
+            opacity="0.75"
+          />
+          {/* Violet arc */}
+          <motion.circle cx="0" cy="0" r={r4 + 2}
+            fill="none" stroke="#A78BFA" strokeWidth="1.5" strokeLinecap="round"
+            strokeDasharray={`${2 * Math.PI * (r4+2) * 0.18} ${2 * Math.PI * (r4+2) * 0.82}`}
+            animate={{ rotate: [120, 480] }}
+            transition={{ duration: 9, ease: "linear", repeat: Infinity }}
+            style={{ originX: "0px", originY: "0px" }}
+            opacity="0.6"
+          />
+          {/* Sky arc */}
+          <motion.circle cx="0" cy="0" r={r4 + 4}
+            fill="none" stroke="#38BDF8" strokeWidth="1" strokeLinecap="round"
+            strokeDasharray={`${2 * Math.PI * (r4+4) * 0.15} ${2 * Math.PI * (r4+4) * 0.85}`}
+            animate={{ rotate: [240, 600] }}
+            transition={{ duration: 13, ease: "linear", repeat: Infinity }}
+            style={{ originX: "0px", originY: "0px" }}
+            opacity="0.5"
+          />
+
+        </g>
+      </svg>
+
+      {/* ══ 4. ORBITING GLOW DOTS — outside the circle ═══════ */}
+      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 6 }}>
+        <OrbitDot color="rgba(52,211,153,0.95)"  size={8}  orbitRadius={r2 + 2} duration={7}  delay={0}   startAngle={0}   centerOffset={center} />
+        <OrbitDot color="rgba(167,139,250,0.90)" size={6}  orbitRadius={r3 + 3} duration={11} delay={2}   startAngle={180} centerOffset={center} />
+        <OrbitDot color="rgba(56,189,248,0.85)"  size={5}  orbitRadius={r4 - 2} duration={15} delay={1}   startAngle={90}  centerOffset={center} />
       </div>
 
-      {/* Layer 4: Floating Badge */}
+      {/* ══ 5. COLOUR LIGHT LEAK HALOS at fixed positions ════ */}
+      {/* Top */}
       <motion.div
-        className="absolute -bottom-2 -right-2 lg:bottom-2 lg:right-[-12px] z-10"
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          width: 56, height: 56,
+          left: center - 28,
+          top: outerPad - r3 - 14,
+          background: "radial-gradient(circle, rgba(52,211,153,0.6), transparent 70%)",
+          filter: "blur(10px)",
+          zIndex: 4,
+        }}
+        animate={{ opacity: [0.5, 1, 0.5], scale: [0.85, 1.1, 0.85] }}
+        transition={{ duration: 3.5, ease: "easeInOut", repeat: Infinity }}
+      />
+      {/* Right */}
+      <motion.div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          width: 48, height: 48,
+          left: outerPad + photoSizePx + r3 - 30,
+          top: center - 24,
+          background: "radial-gradient(circle, rgba(167,139,250,0.6), transparent 70%)",
+          filter: "blur(10px)",
+          zIndex: 4,
+        }}
+        animate={{ opacity: [0.4, 0.9, 0.4], scale: [0.85, 1.05, 0.85] }}
+        transition={{ duration: 4.5, ease: "easeInOut", repeat: Infinity, delay: 1.2 }}
+      />
+      {/* Left */}
+      <motion.div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          width: 44, height: 44,
+          left: outerPad - r3 - 10,
+          top: center - 22,
+          background: "radial-gradient(circle, rgba(56,189,248,0.55), transparent 70%)",
+          filter: "blur(10px)",
+          zIndex: 4,
+        }}
+        animate={{ opacity: [0.4, 0.85, 0.4], scale: [0.9, 1.1, 0.9] }}
+        transition={{ duration: 5, ease: "easeInOut", repeat: Infinity, delay: 0.7 }}
+      />
+      {/* Bottom-right subtle warm */}
+      <motion.div
+        className="absolute pointer-events-none rounded-full"
+        style={{
+          width: 36, height: 36,
+          left: center + r2,
+          top: center + r2,
+          background: "radial-gradient(circle, rgba(251,146,60,0.45), transparent 70%)",
+          filter: "blur(8px)",
+          zIndex: 4,
+        }}
+        animate={{ opacity: [0.3, 0.7, 0.3], scale: [0.9, 1.1, 0.9] }}
+        transition={{ duration: 4, ease: "easeInOut", repeat: Infinity, delay: 2 }}
+      />
+
+      {/* ══ 6. FLOATING BADGE ════════════════════════════════ */}
+      <motion.div
+        className="absolute z-20"
+        style={{
+          left: "50%",
+          bottom: outerPad - 32,
+          x: "-50%",
+        }}
         animate={{ y: [-4, 4, -4] }}
         transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
       >
         <div
-          className="glass-card flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-mono"
-          style={{ color: "var(--text-secondary)" }}
+          className="glass-card flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-mono whitespace-nowrap"
+          style={{
+            color: "var(--text-secondary)",
+            boxShadow: "0 0 20px rgba(52,211,153,0.18)",
+          }}
         >
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-2 w-2 flex-shrink-0">
             <span
               className="absolute inline-flex h-full w-full rounded-full opacity-75"
               style={{

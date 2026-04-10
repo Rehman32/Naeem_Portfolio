@@ -88,7 +88,7 @@ export default function Contact() {
           <motion.a
             href={`mailto:${siteData.personal.email}`}
             variants={itemVariants}
-            className="glass-card p-5 rounded-2xl flex flex-col items-center gap-3 transition-all duration-200 group"
+            className="glass-card contact-card p-5 rounded-2xl flex flex-col items-center gap-3 group"
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -126,7 +126,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
             variants={itemVariants}
-            className="glass-card p-5 rounded-2xl flex flex-col items-center gap-3 transition-all duration-200 group"
+            className="glass-card contact-card p-5 rounded-2xl flex flex-col items-center gap-3 group"
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -164,7 +164,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
             variants={itemVariants}
-            className="glass-card p-5 rounded-2xl flex flex-col items-center gap-3 transition-all duration-200 group"
+            className="glass-card contact-card p-5 rounded-2xl flex flex-col items-center gap-3 group"
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"

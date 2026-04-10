@@ -101,10 +101,9 @@ export default function Header() {
 
             {/* Download CV — Desktop */}
             <a
-              href={siteData.personal.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-200 hover:scale-105"
+              href="/NaeemUpdatedResume.pdf"
+              download="Naeem_Ur_Rahman_CV.pdf"
+              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-300 hover:scale-105 hover:shadow-[0_0_16px_rgba(52,211,153,0.2)]"
               style={{
                 border: "1px solid var(--border-default)",
                 color: "var(--text-secondary)",
@@ -112,7 +111,7 @@ export default function Header() {
             >
               <Download size={13} />
               Download CV
-              <span className="text-[10px]">↗</span>
+              <span className="text-[10px]">↓</span>
             </a>
 
             {/* WhatsApp — Desktop */}

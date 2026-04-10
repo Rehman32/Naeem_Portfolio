@@ -425,3 +425,65 @@ html.light .status-deployed {
   z-index: 9999;
   pointer-events: none;
 }
+
+/* ═══════════════════════════════════════════════════
+   PROJECT GRID — uniform card heights
+   ═══════════════════════════════════════════════════ */
+
+/* Make the grid track equal-height rows automatically */
+.project-grid {
+  display: grid;
+  align-items: stretch;
+}
+
+/* Cards inside the grid always fill height */
+.project-grid > * {
+  height: 100%;
+}
+
+/* ═══════════════════════════════════════════════════
+   SECTION SEPARATOR
+   ═══════════════════════════════════════════════════ */
+
+.section-sep {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border-default) 20%,
+    var(--border-default) 80%,
+    transparent
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   CONTACT CARD — hover boost
+   ═══════════════════════════════════════════════════ */
+
+.contact-card {
+  transition: all 300ms ease;
+}
+.contact-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ═══════════════════════════════════════════════════
+   TECH PILL — duration override
+   ═══════════════════════════════════════════════════ */
+
+.tech-pill-base {
+  transition: all 200ms ease;
+}
+
+/* ═══════════════════════════════════════════════════
+   AVATAR — light mode ring opacity
+   ═══════════════════════════════════════════════════ */
+
+html.light .avatar-ring {
+  opacity: 0.7;
+}
+
+html.dark .avatar-ring {
+  opacity: 1;
+}

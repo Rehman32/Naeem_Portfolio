@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { siteData } from "@/config/site-data";
 import { containerVariants, itemVariants } from "@/components/animations/variants";
-import BentoCard from "@/components/ui/BentoCard";
+import ProjectCard from "@/components/ui/ProjectCard";
 
 export default function Projects() {
-  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const [ref, inView] = useInView({ threshold: 0.05, triggerOnce: true });
   const [eyebrowRef, eyebrowInView] = useInView({ threshold: 0.5, triggerOnce: true });
 
   return (
@@ -33,7 +33,7 @@ export default function Projects() {
           {/* Title */}
           <motion.h2
             variants={itemVariants}
-            className="mt-4 mb-12 font-semibold tracking-[-0.03em]"
+            className="mt-4 mb-4 font-semibold tracking-[-0.03em]"
             style={{
               fontSize: "clamp(32px, 5vw, 48px)",
               color: "var(--text-primary)",
@@ -47,39 +47,21 @@ export default function Projects() {
               0{siteData.projects.length}
             </sup>
           </motion.h2>
+
+          <motion.p
+            variants={itemVariants}
+            className="text-[15px] mb-12 max-w-lg"
+            style={{ color: "var(--text-muted)" }}
+          >
+            Production-grade systems built from scratch — from UI/UX to deployment.
+          </motion.p>
         </motion.div>
 
-        {/* Bento Grid */}
-        <div
-          className="grid gap-4"
-          style={{
-            gridTemplateColumns: "repeat(12, 1fr)",
-            gridAutoRows: "280px",
-          }}
-        >
-          {/* Featured projects: row-span-2 */}
-          {siteData.projects
-            .filter((p) => p.featured)
-            .map((project, i) => (
-              <div
-                key={project.title}
-                className={`${project.gridSpan} row-span-2 max-lg:col-span-12`}
-              >
-                <BentoCard project={project} index={i} />
-              </div>
-            ))}
-
-          {/* Non-featured projects */}
-          {siteData.projects
-            .filter((p) => !p.featured)
-            .map((project, i) => (
-              <div
-                key={project.title}
-                className={`${project.gridSpan} max-lg:col-span-6 max-sm:col-span-12`}
-              >
-                <BentoCard project={project} index={i + 2} />
-              </div>
-            ))}
+        {/* Uniform 3-column grid — all cards same height per row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {siteData.projects.map((project, i) => (
+            <ProjectCard key={project.title} project={project} index={i} />
+          ))}
         </div>
       </div>
     </section>

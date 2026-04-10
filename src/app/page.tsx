@@ -15,6 +15,14 @@ const CustomCursor = dynamic(() => import("@/components/ui/CustomCursor"), {
   ssr: false,
 });
 
+function SectionDivider() {
+  return (
+    <div className="max-w-6xl mx-auto px-6">
+      <div className="section-sep" />
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -26,9 +34,13 @@ export default function Home() {
 
       <main className="relative z-10">
         <Hero />
+        <SectionDivider />
         <Projects />
+        <SectionDivider />
         <Experience />
+        <SectionDivider />
         <TechStack />
+        <SectionDivider />
         <Contact />
       </main>
 
