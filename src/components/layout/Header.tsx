@@ -45,9 +45,6 @@ export default function Header() {
           borderBottom: scrolled
             ? `1px solid var(--header-border)`
             : "1px solid transparent",
-          boxShadow: scrolled
-            ? `0 1px 0 var(--border-default)`
-            : "none",
         }}
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -170,8 +167,8 @@ export default function Header() {
                   onClick={() => setMobileOpen(false)}
                   className="w-9 h-9 flex items-center justify-center rounded-full"
                   style={{
-                    background: "var(--pill-bg)",
-                    border: "1px solid var(--pill-border)",
+                    background: "var(--tag-bg)",
+                    border: "1px solid var(--tag-border)",
                     color: "var(--text-primary)",
                   }}
                   aria-label="Close menu"

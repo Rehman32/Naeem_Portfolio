@@ -15,7 +15,7 @@ export default function Footer() {
       style={{
         background: "var(--footer-bg)",
         borderTop: "1px solid var(--footer-border)",
-        color: "var(--footer-text)",
+        color: "var(--text-secondary)",
       }}
     >
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -29,7 +29,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="transition-all duration-200 hover:scale-110"
-            style={{ color: "var(--footer-text)" }}
+            style={{ color: "var(--text-secondary)" }}
             aria-label="GitHub"
           >
             <GitHubIcon size={18} />
@@ -39,7 +39,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="transition-all duration-200 hover:scale-110"
-            style={{ color: "var(--footer-text)" }}
+            style={{ color: "var(--text-secondary)" }}
             aria-label="LinkedIn"
           >
             <LinkedInIcon size={18} />
@@ -49,7 +49,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="transition-all duration-200 hover:scale-110"
-            style={{ color: "var(--footer-text)" }}
+            style={{ color: "var(--text-secondary)" }}
             aria-label="WhatsApp"
           >
             <WhatsAppIcon size={18} />
@@ -60,7 +60,7 @@ export default function Footer() {
         <button
           onClick={scrollToTop}
           className="flex items-center gap-1.5 text-sm transition-all duration-200 hover:scale-105 group"
-          style={{ color: "var(--footer-text)" }}
+          style={{ color: "var(--text-secondary)" }}
         >
           <span>Back to Top</span>
           <ArrowUp

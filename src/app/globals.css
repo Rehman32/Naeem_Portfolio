@@ -6,104 +6,78 @@
    DUAL THEME SYSTEM — CSS Custom Properties
    ═══════════════════════════════════════════════════ */
 
-/* Theme A — "Carbon Ember" (Dark) */
-html.dark {
-  --bg-page: #09090B;
-  --bg-surface: #111113;
-  --bg-elevated: #18181B;
-  --border-default: #27272A;
-  --accent-primary: #34D399;
-  --accent-secondary: #A78BFA;
-  --accent-tertiary: #38BDF8;
-  --accent-warm: #FB923C;
-  --text-primary: #F4F4F5;
-  --text-secondary: #A1A1AA;
-  --text-muted: #52525B;
+/* Theme A — "Carbon Ember" (Dark) Default */
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #0f1117;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.055);
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.16);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-muted: rgba(255, 255, 255, 0.35);
+  --tag-bg: rgba(255, 255, 255, 0.06);
+  --tag-border: rgba(255, 255, 255, 0.1);
+  --tag-text: rgba(255, 255, 255, 0.75);
+  --btn-ghost-border: rgba(255, 255, 255, 0.2);
+  --btn-ghost-text: rgba(255, 255, 255, 0.85);
+  --btn-ghost-hover-bg: rgba(255, 255, 255, 0.07);
+  --accent-primary: #4fffb0;
+  --accent-secondary: #00d4ff;
+  --section-heading: #ffffff;
+  --section-subheading: rgba(255, 255, 255, 0.45);
+  --divider: rgba(255, 255, 255, 0.07);
+  --badge-bg: rgba(79, 255, 176, 0.1);
+  --badge-text: #4fffb0;
+  --badge-border: rgba(79, 255, 176, 0.25);
+  
+  --hero-gradient: linear-gradient(135deg, #ffffff 0%, #4fffb0 50%, #00d4ff 100%);
+
   --selection-bg: rgba(52, 211, 153, 0.25);
-
-  /* Card glassmorphism */
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --card-border: rgba(255, 255, 255, 0.07);
-  --card-shadow-inset: rgba(255, 255, 255, 0.06);
-  --card-hover-border: rgba(52, 211, 153, 0.22);
-  --card-hover-glow: rgba(52, 211, 153, 0.08);
-  --card-hover-inset: rgba(255, 255, 255, 0.09);
-
-  /* Ambient orbs */
-  --orb-1: radial-gradient(ellipse 900px 700px at 10% 20%, rgba(6, 78, 59, 0.18), transparent);
-  --orb-2: radial-gradient(ellipse 700px 600px at 90% 50%, rgba(46, 16, 101, 0.14), transparent);
-  --orb-3: radial-gradient(ellipse 800px 500px at 50% 90%, rgba(8, 47, 73, 0.12), transparent);
-
-  /* Scrollbar */
-  --scrollbar-track: #09090B;
-  --scrollbar-thumb: #27272A;
-
-  /* Header */
-  --header-bg: rgba(9, 9, 11, 0.8);
-  --header-border: rgba(39, 39, 42, 0.5);
-
-  /* Tech pill */
-  --pill-bg: rgba(39, 39, 42, 0.6);
-  --pill-border: rgba(63, 63, 70, 0.5);
-  --pill-text: #D4D4D8;
-
-  /* Footer */
-  --footer-bg: #09090B;
-  --footer-border: #27272A;
-  --footer-text: #52525B;
-
-  /* Marquee */
   --marquee-bg: rgba(24, 24, 27, 0.4);
+
+  --header-bg: rgba(10, 10, 15, 0.8);
+  --header-border: var(--border-default);
+  --footer-bg: rgba(10, 10, 15, 0.95);
+  --footer-border: var(--border-default);
 }
 
 /* Theme B — "Pearl Frost" (Light) */
-html.light {
-  --bg-page: #FAFAF9;
-  --bg-surface: #FFFFFF;
-  --bg-elevated: #F5F5F4;
-  --border-default: #E7E5E4;
-  --accent-primary: #059669;
-  --accent-secondary: #7C3AED;
-  --accent-tertiary: #0284C7;
-  --accent-warm: #EA580C;
-  --text-primary: #1C1917;
-  --text-secondary: #78716C;
-  --text-muted: #A8A29E;
+[data-theme="light"], .light {
+  --bg-primary: #f8f9fb;
+  --bg-secondary: #f0f2f5;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 1);
+  --border-default: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.18);
+  --text-primary: #0a0a0f;
+  --text-secondary: rgba(10, 10, 15, 0.62);
+  --text-muted: rgba(10, 10, 15, 0.38);
+  --tag-bg: rgba(0, 0, 0, 0.05);
+  --tag-border: rgba(0, 0, 0, 0.1);
+  --tag-text: rgba(10, 10, 15, 0.72);
+  --btn-ghost-border: rgba(0, 0, 0, 0.18);
+  --btn-ghost-text: rgba(10, 10, 15, 0.8);
+  --btn-ghost-hover-bg: rgba(0, 0, 0, 0.05);
+  --accent-primary: #00a86b;
+  --accent-secondary: #0099bb;
+  --section-heading: #0a0a0f;
+  --section-subheading: rgba(10, 10, 15, 0.5);
+  --divider: rgba(0, 0, 0, 0.07);
+  --badge-bg: rgba(0, 168, 107, 0.1);
+  --badge-text: #007a4d;
+  --badge-border: rgba(0, 168, 107, 0.25);
+
+  --hero-gradient: linear-gradient(135deg, #007a4d 0%, #00a86b 50%, #0099bb 100%);
+
   --selection-bg: rgba(5, 150, 105, 0.2);
-
-  /* Card glassmorphism */
-  --card-bg: rgba(255, 255, 255, 0.85);
-  --card-border: rgba(231, 229, 228, 0.8);
-  --card-shadow-inset: none;
-  --card-hover-border: rgba(5, 150, 105, 0.35);
-  --card-hover-glow: rgba(5, 150, 105, 0.1);
-  --card-hover-inset: none;
-
-  /* Ambient orbs */
-  --orb-1: radial-gradient(ellipse 900px 700px at 10% 20%, rgba(167, 243, 208, 0.35), transparent);
-  --orb-2: radial-gradient(ellipse 700px 600px at 90% 50%, rgba(221, 214, 254, 0.3), transparent);
-  --orb-3: radial-gradient(ellipse 800px 500px at 50% 90%, rgba(186, 230, 253, 0.25), transparent);
-
-  /* Scrollbar */
-  --scrollbar-track: #FAFAF9;
-  --scrollbar-thumb: #D6D3D1;
-
-  /* Header */
-  --header-bg: rgba(250, 250, 249, 0.8);
-  --header-border: rgba(231, 229, 228, 0.6);
-
-  /* Tech pill */
-  --pill-bg: #F5F5F4;
-  --pill-border: #E7E5E4;
-  --pill-text: #44403C;
-
-  /* Footer */
-  --footer-bg: #FAFAF9;
-  --footer-border: #E7E5E4;
-  --footer-text: #A8A29E;
-
-  /* Marquee */
   --marquee-bg: rgba(245, 245, 244, 0.6);
+
+  --header-bg: var(--bg-secondary);
+  --header-border: var(--divider);
+  --footer-bg: var(--bg-secondary);
+  --footer-border: var(--divider);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -115,7 +89,7 @@ html {
 }
 
 body {
-  background-color: var(--bg-page);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-geist-sans), sans-serif;
   overflow-x: hidden;
@@ -139,14 +113,14 @@ body {
    ═══════════════════════════════════════════════════ */
 
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
+  background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 2px;
+  background: var(--border-hover); 
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-primary);

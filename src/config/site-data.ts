@@ -46,10 +46,10 @@ export const siteData = {
     cgpaMax: "4.0",
   },
   skills: {
-    frontend: ["Next.js", "React 19", "TypeScript", "Tailwind CSS", "Zustand"],
-    backend: ["Node.js", "FastAPI", "Express.js", "PostgreSQL", "MongoDB"],
-    ai_ml: ["Python", "TensorFlow", "LangChain", "RAG", "Medical AI", "Computer Vision"],
-    devops: ["Docker", "Kubernetes", "GitHub Actions", "Vercel", "Render"],
+    frontend: ["Next.js", "React 19", "TypeScript", "Tailwind CSS","Shadcn UI", "Zustand"],
+    backend: ["Node.js", "FastAPI", "Express.js","TypeScript", "PostgreSQL", "MongoDB","MySQL"],
+    ai_ml: ["Python", "TensorFlow", "LangChain", "RAG", "Medical AI", "Computer Vision","NLP","PyTorch"],
+    devops: ["Docker", "Kubernetes", "GitHub Actions", "AWS EC2", "AWS S3", "AWS Lambda", "Firebase", "Linux / Bash", "CI/CD Pipelines"],
   },
   projects: [
     {
@@ -61,7 +61,7 @@ export const siteData = {
       description:
         "Enterprise Clinical Decision Support System for multimodal skin cancer triage. Architected a custom inference pipeline using ConvNeXt-Tiny and FAISS for out-of-distribution detection, wrapped in an asynchronous FastAPI backend and a Next.js clinical UI.",
       techStack: ["Next.js", "FastAPI", "Python", "TensorFlow", "Medical AI"],
-      githubUrl: "https://github.com/Rehman32",
+      githubUrl: "https://github.com/Rehman32/OncoVisionX",
       liveUrl: "https://github.com/Rehman32",
       accentColor: "violet",
       gridSpan: "col-span-7",
@@ -75,7 +75,7 @@ export const siteData = {
       description:
         "AI-powered contract intelligence platform. Engineered a production-grade RAG pipeline using LangChain and ChromaDB for semantic search over legal PDFs, featuring structured JSON output parsing for clause-level risk analysis.",
       techStack: ["Next.js 14", "FastAPI", "PostgreSQL", "ChromaDB", "OpenAI"],
-      githubUrl: "https://github.com/Rehman32",
+      githubUrl: "https://github.com/Rehman32/ContractLens.git",
       liveUrl: "https://github.com/Rehman32",
       accentColor: "sky",
       gridSpan: "col-span-5",
@@ -89,7 +89,7 @@ export const siteData = {
       description:
         "Industry-grade School Management System digitizing administrative operations. Implemented complex linked-data architecture for automated timetables, custom JWT auth with rotating tokens, and Excel data export.",
       techStack: ["React 19", "Node.js", "Express", "MongoDB", "Tailwind 4"],
-      githubUrl: "https://github.com/Rehman32",
+      githubUrl: "https://github.com/Rehman32/school-management-mern-client",
       liveUrl: "https://sharpedumanage.vercel.app/login",
       accentColor: "emerald",
       gridSpan: "col-span-4",
@@ -103,7 +103,7 @@ export const siteData = {
       description:
         "AI-driven culinary platform bridging recipe discovery with health analytics. Architected global state management with Zustand/TanStack Query and integrated the Spoonacular API handling 500k+ recipes.",
       techStack: ["React 19", "TypeScript", "Node.js", "MongoDB", "Zustand"],
-      githubUrl: "https://github.com/Rehman32",
+      githubUrl: "https://github.com/Rehman32/food-recipe-mern-app",
       liveUrl: "https://flavorai-sigma.vercel.app/",
       accentColor: "amber",
       gridSpan: "col-span-4",
@@ -117,7 +117,7 @@ export const siteData = {
       description:
         "Custom online academy platform facilitating remote learning. Built complete user interfaces and backend APIs to handle student enrollment and structured content delivery at scale.",
       techStack: ["React", "Node.js", "Express", "MongoDB"],
-      githubUrl: "https://github.com/Rehman32",
+      githubUrl: "https://github.com/Rehman32/TaleemUlQuran",
       liveUrl: "https://taleem-ul-quran-online-quran-academy.vercel.app/",
       accentColor: "teal",
       gridSpan: "col-span-4",
