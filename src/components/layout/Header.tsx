@@ -119,12 +119,14 @@ export default function Header() {
               href={`https://wa.me/${siteData.personal.whatsapp.replace(/\+/g, "")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 hover:scale-110"
+              className="hidden md:flex items-center justify-center w-9 h-9 rounded-full transition-all duration-300 hover:scale-110 group/wa"
               style={{
                 background: "rgba(37, 211, 102, 0.1)",
                 border: "1px solid rgba(37, 211, 102, 0.2)",
-                color: "#25D366",
+                color: "var(--text-muted)",
               }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#25D366"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-muted)"; }}
               aria-label="WhatsApp"
             >
               <WhatsAppIcon size={16} />

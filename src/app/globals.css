@@ -300,18 +300,19 @@ html.light .glass-card:hover {
    GRADIENT TEXT
    ═══════════════════════════════════════════════════ */
 
-@keyframes gradient-pan {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+@keyframes gradientPan {
+  0%   { background-position: 0%   50%; }
+  100% { background-position: 100% 50%; }
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
+  background: linear-gradient(90deg, #34D399 0%, #A78BFA 50%, #38BDF8 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradient-pan 4s linear infinite;
+  animation: gradientPan 4s ease-in-out infinite alternate;
+  opacity: 0.95;
 }
 
 /* ═══════════════════════════════════════════════════
